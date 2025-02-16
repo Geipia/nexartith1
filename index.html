@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Décompte jusqu'à Mercredi 18h30</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+      margin: 0;
+    }
+    #countdown {
+      font-size: 3em;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div id="countdown">Chargement...</div>
+
+  <script>
+    // Date de fin fixée à mercredi 18h30 (exemple : 19 février 2025 à 18:30)
+    const targetDate = new Date("2025-02-19T18:30:00");
+
+    // Lien de redirection une fois le décompte terminé
+    const targetLink = 'https://www.example.com';
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeLeft = Math.floor((targetDate - now) / 1000); // temps restant en secondes
+
+      // Si le temps est écoulé, rediriger
+      if (timeLeft <= 0) {
+        window.location.href = targetLink;
+        return;
+      }
+
+      // Calculer les heures, minutes et secondes
+      const days = Math.floor(timeLeft / (3600 * 24));
+      const hours = Math.floor((timeLeft % (3600 * 24)) / 3600);
+      const minutes = Math.floor((timeLeft % 3600) / 60);
+      const seconds = timeLeft % 60;
+
+      // Mettre à jour l'affichage
+      document.getElementById('countdown').textContent =
+          (days > 0 ? days + "j " : "") +
+          hours.toString().padStart(2, '0') + ':' +
+          minutes.toString().padStart(2, '0') + ':' +
+          seconds.toString().padStart(2, '0');
+    }
+
+    // Actualiser le décompte toutes les secondes
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
